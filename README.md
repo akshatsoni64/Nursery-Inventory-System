@@ -12,5 +12,5 @@ Installation Notes:
 <code>python3 manage.py migrate</code>
 - Fire up the server<br>
 <code>python3 manage.py runserver</code>
-- Register the users
+- <a href="http://localhost:8000/register">Register the users</a>
 - Use the app
