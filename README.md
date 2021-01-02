@@ -13,4 +13,4 @@ Installation Notes:
 - Fire up the server<br>
 <code>python3 manage.py runserver</code>
 - <a href="http://localhost:8000/register">Register the users</a>
-- Use the app
+- <a href="http://localhost:8000/login">Use the app</a>
