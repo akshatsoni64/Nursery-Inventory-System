@@ -8,9 +8,9 @@ Installation Notes:
 <code>pip3 install -r requirements.txt</code>
 - Make empty database named 'nursery'
 - Configure database connection in settings.py
-- Migrate the database
+- Migrate the database<br>
 <code>python3 manage.py migrate</code>
-- Fire up the server
+- Fire up the server<br>
 <code>python3 manage.py runserver</code>
 - Register the users
 - Use the app
