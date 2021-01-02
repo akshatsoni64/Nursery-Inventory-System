@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Product Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <!-- <script src="{{ asset('js/script.js') }}"></script> -->
+        <style>
+            h1{
+                background: -webkit-linear-gradient(180deg, rgba(6,219,52,1) 0%, rgba(4,223,77,1) 50%, rgba(2,222,190,1) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        </style>
+    </head>
+    <body>    
+        <div class="container-fluid mb-5"> <!-- Container Begins -->
+            <div class="row">
+                <div class="col">                    
+                    <h1 class="text-center display-2">Products</h1>
+                </div>
+                <div class="col-2">                    
+                    <a class="text-center font-weight-bold text-white btn btn-primary dropdown-item" href="#"
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+    
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+            <button class="btn btn-primary" href="#carouselExampleIndicators" role="button" data-slide="prev"><i class='fas fa-angle-left'></i></button>
+            <button class="btn btn-primary float-right" href="#carouselExampleIndicators" role="button" data-slide="next"><i class='fas fa-angle-right'></i></button>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"> <!-- Carousel Begins -->
+                <!-- <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol> -->
+                <div class="carousel-inner">
+                    @php( $counter = 0 )
+                    @foreach($data as $row)
+                        @if($counter == 0)
+                        <div class="carousel-item active">
+                        <div class="row pt-5 px-3 border border-bottom-0 border-left-0 border-right-0">
+                        @else
+                            @if($counter % 3 == 0)
+                                </div></div>
+                                <div class="carousel-item">
+                                <div class="row pt-5 px-3 border border-bottom-0 border-left-0 border-right-0">
+                            @endif
+                        @endif
+                        <div class="col-4">                 
+                            
+                            <!-- Product Card Begin -->
+                            <div class="card shadow mb-5 rounded-lg">
+                                <center>
+                                    <img style="margin-top:-3%;webkit-box-shadow: 0 0 20px #aaa;box-shadow: 0 0 20px #aaa;" class="text-center bg-white p-2 rounded-lg" src="{{$row['image']}}" height="260" width="200">
+                                    
+                                </center>
+                                <div class="card-body pt-4 text-center">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h3>{{ Str::title($row['category']) }}</h3>
+                                            <h3 class="text-primary font-weight-bold">{{$row['pname']}}</h3>                                    
+                                        </div>
+                                        <div class="col-5">
+                                            <button id="updt{{$row['id']}}" class="updtBtn float-right m-3 btn btn-primary rounded-circle" style="width:auto;">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            </button>                                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mx-4 p-2 border border-bottom-0 border-left-0 border-right-0">
+                                    <div class="row pt-2 text-center">
+                                        <div class="col">
+                                            <h5>Quantity: {{ $row['quantity'] }}</h5>
+                                        </div>
+                                        <div class="col">
+                                            <h5>&#8377;{{ $row['price'] }}/-</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product Card End -->
+                            
+                        </div>
+                        @php( $counter++ )
+                    @endforeach
+                </div>
+                <!-- <a class="bg-infoo carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="bg-infoo carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span> -->
+                </a>
+            </div> 
+            <!-- Carousel Ends -->
+            <!-- Footer Begins -->
+            <div class="fixed-bottom">
+                <div class="float-right">
+                    <button class="btn btn-primary mb-3 mr-3" title="Add Product" data-toggle="modal" data-target="#addProduct">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Footer Ends -->
+        </div> <!-- Container Ends -->
+        <!-- modals -->
+            <!-- Add Product -->
+            <div class="modal fade" id="addProduct">
+                <div class="modal-dialog">
+                    <div class="modal-content">                
+                        <div class="modal-header text-center" style="background: linear-gradient(270deg, rgba(6,207,219,1) 0%, rgba(4,181,223,1) 50%, rgba(2,14,222,1) 100%);">
+                            <h4 class="text-white font-weight-bold">Product Information</h4>
+                        </div>
+                        <form action="{{ route('p.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- <div class="col-3">
+                                        <div class="md-form">
+                                            <input type="text" id="sku" name="sku" class="form-control" placeholder="SKU" required>
+                                            <label for="sku">SKU</label>
+                                        </div>
+                                    </div> -->
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="text" id="pname" name="pname" class="form-control" placeholder="Product Name" required>
+                                            <!-- <label for="pname">Product Name</label> -->
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="text" id="category" name="category" class="form-control" placeholder="Category" required>
+                                            <!-- <label for="category">Category</label> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Quantity" required>
+                                            <!-- <label for="quantity">Quantity</label> -->
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="number" id="price" name="price" class="form-control" placeholder="Price" required>
+                                            <!-- <label for="price">Price</label> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="image" name="image">
+                                            <label class="custom-file-label border-top-0 border-left-0 border-right-0" for="customFile">Add Product Image</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" value="Add" class="btn btn-outline-success">
+                                <input type="reset" value="Reset" class="ml-3 btn btn-outline-danger">
+                            </div>
+                        </form>
+                    </div>                    
+                </div>
+            </div>
+
+            <!-- Update Product -->
+            <div class="modal fade" id="updtproduct">
+                <div class="modal-dialog">
+                    <div class="modal-content">                
+                        <div class="modal-header text-center" style="background: linear-gradient(270deg, rgba(6,207,219,1) 0%, rgba(4,181,223,1) 50%, rgba(2,14,222,1) 100%);">
+                            <h4 class="text-white font-weight-bold">Product Information</h4>
+                        </div>
+                        <form id="updateForm" action="#" method="POST" enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- <div class="col-3">
+                                        <div class="md-form">
+                                            <input type="text" id="sku" name="sku" class="form-control" placeholder="SKU" required>
+                                            <label for="sku">SKU</label>
+                                        </div>
+                                    </div> -->
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="text" id="u_pname" name="pname" class="form-control" placeholder="Product Name" required>
+                                            <!-- <label for="pname">Product Name</label> -->
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="text" id="u_category" name="category" class="form-control" placeholder="Category" required>
+                                            <!-- <label for="category">Category</label> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="number" id="u_quantity" name="quantity" class="form-control" placeholder="Quantity" required>
+                                            <!-- <label for="quantity">Quantity</label> -->
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="md-form">
+                                            <input type="number" id="u_price" name="price" class="form-control" placeholder="Price" required>
+                                            <!-- <label for="price">Price</label> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="u_image" name="image">
+                                            <label class="custom-file-label border-top-0 border-left-0 border-right-0" for="customFile">Add Product Image</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" value="Update" class="btn btn-outline-primary">
+                                <input type="reset" value="Reset" class="ml-3 btn btn-outline-danger">
+                            </div>
+                        </form>
+                    </div>                    
+                </div>
+            </div>
+        <!-- /modals -->
+    </body>
+</html>

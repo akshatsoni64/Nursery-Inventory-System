@@ -1,0 +1,26 @@
+{% extends 'nav.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+    <div class="row">
+        <div class="col text-center">
+            <img src="{{ info.image }}" alt="image" height="300" width="300">
+        </div>
+        <div class="col">
+            <b>Name: </b><p>{{ info.name }}</p>
+            <b>Stock: </b><p>{{ info.stock }}</p>
+            <b>Price: </b><p>{{ info.price }}</p>
+        </div>
+        {% if user_type == "customer" %}
+        <div class="col px-5">
+            <form method="POST" action="{% url 'order' %}">
+                <input type="hidden" name="plant_id" value="{{ plant_id }}">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" value="Place Order" class="btn btn-outline-primary">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

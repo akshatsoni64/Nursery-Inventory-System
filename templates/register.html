@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}        
+<div class="mt-3 container">
+    <div class="container">
+        {% if error %}
+            {% for err, message in error.items %}
+            <div class="alert alert-danger">
+                <strong>{{ err | title }}:</strong> {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% if success %}
+            <div class="alert alert-success">
+                <strong>Success!</strong> {{ success }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="text-center">
+        <h1>Nursery Inventory System | Customer Registration</h1>
+    </div>
+    <hr>
+    <div class="mt-5 row">
+        <div class="col">
+            <form action="{% url 'registration' %}" method="POST">
+                {% csrf_token %}                        
+                <div class="row">
+                    <div class="col">                        
+                        {{ custForm.username | as_crispy_field }}
+                    </div>
+                    <div class="col">                        
+                        {{ custForm.first_name | as_crispy_field }}
+                    </div>
+                    <div class="col">                        
+                        {{ custForm.last_name | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">                        
+                        {{ custForm.type | as_crispy_field }}
+                    </div>
+                    <div class="col">                        
+                        {{ custForm.email | as_crispy_field }}
+                    </div>
+                    <div class="col">                        
+                        {{ custForm.mobile | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">                        
+                        {{ custForm.password1 | as_crispy_field }}
+                    </div>
+                    <div class="col">                        
+                        {{ custForm.password2 | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">                        
+                        {{ custForm.address | as_crispy_field }}
+                    </div>
+                </div>
+                <center>                    
+                    <input type="submit" value="Register" class="btn btn-success"> Already registered, <a href="{% url 'authenticate' %}">Login here!</a>
+                </center>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

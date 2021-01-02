@@ -1,0 +1,59 @@
+{% extends 'nav.html' %}
+
+{% block main %}
+<div class="container">
+    <div class="container">
+        {% if error %}
+            {% for err, message in error.items %}
+            <div class="alert alert-danger">
+                <strong>{{ err | title }}:</strong> {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                {% for record in plants %}
+                    {% if forloop.counter0|divisibleby:3 %}
+                </div>
+                <div class="row mb-3">
+                    <div class="col border p-3 mr-2">
+                        <a href="{% url 'view_plant' id=record.id %}">
+                            <img src="{{ record.image }}" height="200" width="200"><br>
+                        </a>
+                        <b>Name: </b><p>{{ record.name }}</p>
+                        <b>Stock: </b><p>{{ record.stock }}</p>
+                        <b>Price: </b><p>{{ record.price }}</p>
+                    </div>
+                    {% else %}
+                        <div class="col border p-3 mr-2">
+                            <a href="{% url 'view_plant' id=record.id %}">
+                                <img src="{{ record.image }}" height="200" width="200"><br>
+                            </a>
+                            <b>Name: </b><p>{{ record.name }}</p>
+                            <b>Stock: </b><p>{{ record.stock }}</p>
+                            <b>Price: </b><p>{{ record.price }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <hr>
+            </div>
+        </div>                
+        <div class="col-4" id="plantForm" style="display: none;">
+            <form action="{% url 'plant' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-success" value="Add Plant">
+            </form>
+        </div>
+    </div>
+</div>
+{% if user_type == "nursery" %}
+    <div class="fixed-bottom">
+        <button type="button" id="addPlant" class="mb-3 mr-3 float-right btn btn-primary rounded-circle">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </div>
+{% endif %}
+{% endblock %}

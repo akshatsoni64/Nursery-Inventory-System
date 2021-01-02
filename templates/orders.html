@@ -1,0 +1,36 @@
+{% extends 'nav.html' %}
+
+{% block main %}
+<!-- Isme order aur unki details dekh sakte he -->
+<div class="container">
+    <div class="row">
+        {% if orders %}
+            {% for record in orders %}
+                {% if forloop.counter0|divisibleby:4 %}
+                </div>
+                <div class="mt-2 row">
+                    <div class="col border p-3 mr-2">
+                        <b>Plant Name: </b><p>{{ record.plant.name }}</p>
+                        {% if user_type == "nursery" %}
+                            <b>Customer Name: </b><p>{{ record.cust.user.first_name | title }}</p>
+                        {% endif %}
+                        <b>Quantity: </b><p>{{ record.quantity }}</p>
+                        <b>Price: </b><p>{{ record.price }}</p>
+                    </div>
+                {% else %}
+                    <div class="col border p-3 mr-2">
+                        <b>Plant Name: </b><p>{{ record.plant.name }}</p>
+                        {% if user_type == "nursery" %}
+                            <b>Customer Name: </b><p>{{ record.cust.user.first_name | title }}</p>
+                        {% endif %}
+                        <b>Quantity: </b><p>{{ record.quantity }}</p>
+                        <b>Price: </b><p>{{ record.price }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            No order placed yet! &nbsp; <a href="{% url 'plant' %}">Shop Now</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+<nav class="top-fixed navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="javascript:void(0)">Nursery</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navb">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'plant' %}">Plants</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'order' %}">Orders</a>
+        </li>
+      </ul>
+      <div class="form-inline ">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <p class="nav-link">Welcome {{ request.user.first_name | title }}</p>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </li>
+        </ul>    
+        
+      </div>
+    </div>
+  </nav>
+<br><br><br>
+{% endblock %}
